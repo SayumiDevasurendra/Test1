@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/10nkK7j7Y39ESMCq75j6zqBNqp9JNkugp
 """
 
-# First, install necessary libraries
-!pip install transformers
 
 from transformers import pipeline
 
