@@ -7,59 +7,39 @@ Original file is located at
     https://colab.research.google.com/drive/1O3UXcf25b_6VYbcdIpDJqLFNnBizobpE
 """
 
-
+# UI code using Streamlit
 import streamlit as st
-from transformers import pipeline
-from keybert import KeyBERT
-import gensim
-from gensim import corpora
 
-# Text Summarization (Explicitly specifying model and revision)
-summarizer = pipeline('summarization', model="sshleifer/distilbart-cnn-12-6", revision="a4f8f3e")
-
-# Sentiment Analysis (Explicitly specifying model and revision)
-sentiment_analyzer = pipeline('sentiment-analysis', model="distilbert/distilbert-base-uncased-finetuned-sst-2-english", revision="af0f99b")
-
-# Keyword Extraction
-kw_model = KeyBERT()
-
-# Topic Modeling Helper
-def topic_modeling(texts):
-    tokenized_texts = [gensim.utils.simple_preprocess(text) for text in texts]
-    dictionary = corpora.Dictionary(tokenized_texts)
-    corpus = [dictionary.doc2bow(text) for text in tokenized_texts]
-    lda_model = gensim.models.LdaModel(corpus, num_topics=3, id2word=dictionary, passes=15)
-    topics = lda_model.print_topics()
-    return topics
-
-# Streamlit App UI
-def app():
+def main():
+    # Title and description
     st.title("End-to-End Text Summarization and Analysis System")
+    st.write("""
+    This system can summarize large corpora of text, analyze sentiment, extract keywords, and perform topic modeling.
+    Upload a text file or paste the content below to get started.
+    """)
 
-    uploaded_file = st.file_uploader("Upload a Text File", type=["txt"])
-    text = st.text_area("Or Paste your Text Here")
+    # File uploader
+    uploaded_file = st.file_uploader("Upload a text file", type=["txt"])
+    
+    # Text area input
+    text_input = st.text_area("Or paste your text here", height=200)
 
-    if uploaded_file is not None:
-        text = uploaded_file.read().decode("utf-8")
+    # Buttons for different actions
+    if st.button("Summarize"):
+        st.write("Summarized text will be displayed here.")
+        # Call summarization function here
 
-    if text:
-        st.subheader("Text Summarization")
-        summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
-        st.write(summary[0]['summary_text'])
+    if st.button("Analyze Sentiment"):
+        st.write("Sentiment analysis results will be displayed here.")
+        # Call sentiment analysis function here
 
-        st.subheader("Sentiment Analysis")
-        sentiment = sentiment_analyzer(text)
-        st.write(sentiment)
+    if st.button("Extract Keywords"):
+        st.write("Extracted keywords will be displayed here.")
+        # Call keyword extraction function here
 
-        st.subheader("Keyword Extraction")
-        keywords = kw_model.extract_keywords(text)
-        st.write(keywords)
-
-        st.subheader("Topic Modeling")
-        topics = topic_modeling([text])
-        for topic in topics:
-            st.write(topic)
+    if st.button("Topic Modeling"):
+        st.write("Topic modeling results will be displayed here.")
+        # Call topic modeling function here
 
 if __name__ == "__main__":
-    app()
-
+    main()
