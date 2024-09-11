@@ -8,17 +8,6 @@ Original file is located at
 """
 
 
-
-!pip install streamlit
-
-!pip install pyngrok
-
-!pip install transformers
-
-!pip install keybert
-
-!pip install gensim
-
 import streamlit as st
 from transformers import pipeline
 from keybert import KeyBERT
