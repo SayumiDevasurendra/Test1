@@ -14,11 +14,11 @@ from keybert import KeyBERT
 import gensim
 from gensim import corpora
 
-# Text Summarization
-summarizer = pipeline('summarization')
+# Text Summarization (Explicitly specifying model and revision)
+summarizer = pipeline('summarization', model="sshleifer/distilbart-cnn-12-6", revision="a4f8f3e")
 
-# Sentiment Analysis
-sentiment_analyzer = pipeline('sentiment-analysis')
+# Sentiment Analysis (Explicitly specifying model and revision)
+sentiment_analyzer = pipeline('sentiment-analysis', model="distilbert/distilbert-base-uncased-finetuned-sst-2-english", revision="af0f99b")
 
 # Keyword Extraction
 kw_model = KeyBERT()
@@ -62,3 +62,4 @@ def app():
 
 if __name__ == "__main__":
     app()
+
