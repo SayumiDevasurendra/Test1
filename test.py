@@ -15,11 +15,6 @@ import gensim
 from gensim import corpora
 from pyngrok import ngrok
 
-# Add your authtoken before starting the tunnel
-!ngrok authtoken YOUR_NGROK_AUTH_TOKEN
-
-# Expose Streamlit on Colab
-!nohup streamlit run app.py &
 # Connect to the port directly (port should be an integer)
 public_url = ngrok.connect(8501)
 public_url
