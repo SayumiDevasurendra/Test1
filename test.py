@@ -13,11 +13,6 @@ from transformers import pipeline
 from keybert import KeyBERT
 import gensim
 from gensim import corpora
-from pyngrok import ngrok
-
-# Connect to the port directly (port should be an integer)
-public_url = ngrok.connect(8501)
-public_url
 
 # Text Summarization
 summarizer = pipeline('summarization')
