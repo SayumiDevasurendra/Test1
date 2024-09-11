@@ -7,8 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1O3UXcf25b_6VYbcdIpDJqLFNnBizobpE
 """
 
-# UI code using Streamlit
 import streamlit as st
+from text_summarization import summarize_text  # Import the summarize function
 
 def main():
     # Title and description
@@ -24,11 +24,19 @@ def main():
     # Text area input
     text_input = st.text_area("Or paste your text here", height=200)
 
-    # Buttons for different actions
+    # Button for Summarization
     if st.button("Summarize"):
-        st.write("Summarized text will be displayed here.")
-        # Call summarization function here
+        if uploaded_file is not None:
+            file_content = uploaded_file.read().decode("utf-8")
+            summary = summarize_text(file_content)  # Call the summarization function
+            st.write(summary)
+        elif text_input:
+            summary = summarize_text(text_input)  # Call the summarization function
+            st.write(summary)
+        else:
+            st.write("Please upload a file or paste some text.")
 
+    # Other buttons for Sentiment Analysis, Keyword Extraction, Topic Modeling
     if st.button("Analyze Sentiment"):
         st.write("Sentiment analysis results will be displayed here.")
         # Call sentiment analysis function here
